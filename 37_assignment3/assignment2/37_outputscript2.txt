@@ -1,0 +1,621 @@
+mysql: [Warning] Using a password on the command line interface can be insecure.
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+--------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                  |
++---------+-----------+-----------+--------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                   |
+| hsimp   | Homer     | Simpson   | https://pngimg.com/uploads/simpsons/simpsons_PNG27.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                   |
+| mgell   | Monica    | Geller    | NULL                                                   |
+| msimp   | Marge     | Simpson   | NULL                                                   |
+| nflan   | Ned       | Flanders  | NULL                                                   |
+| pbuff   | Phoebe    | Buffay    | NULL                                                   |
+| rgell   | Ross      | Geller    | NULL                                                   |
+| rgree   | Rachel    | Green     | NULL                                                   |
+| tflan   | Todd      | Flanders  | NULL                                                   |
+| wwhite1 | Walter    | White     | NULL                                                   |
++---------+-----------+-----------+--------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+UPDATE user
+SET image = 'https://pngimg.com/uploads/simpsons/simpsons_PNG27.png'
+WHERE firstname = 'Homer'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2023-11-03 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2023-11-03 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
+| 213    | Say my name.                                       | 2022-03-09 | NULL  | wwhite1 |
++--------+----------------------------------------------------+------------+-------+---------+
+13 rows in set (0.00 sec)
+
+--------------
+UPDATE post
+JOIN user ON post.userid = user.userid
+SET postdate = '2020-08-24'
+WHERE user.lastname = 'Bing'
+--------------
+
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+--------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                  |
++---------+-----------+-----------+--------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                   |
+| hsimp   | Homer     | Simpson   | https://pngimg.com/uploads/simpsons/simpsons_PNG27.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                   |
+| mgell   | Monica    | Geller    | NULL                                                   |
+| msimp   | Marge     | Simpson   | NULL                                                   |
+| nflan   | Ned       | Flanders  | NULL                                                   |
+| pbuff   | Phoebe    | Buffay    | NULL                                                   |
+| rgell   | Ross      | Geller    | NULL                                                   |
+| rgree   | Rachel    | Green     | NULL                                                   |
+| tflan   | Todd      | Flanders  | NULL                                                   |
+| wwhite1 | Walter    | White     | NULL                                                   |
++---------+-----------+-----------+--------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2020-08-24 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2020-08-24 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
+| 213    | Say my name.                                       | 2022-03-09 | NULL  | wwhite1 |
++--------+----------------------------------------------------+------------+-------+---------+
+13 rows in set (0.00 sec)
+
+--------------
+INSERT INTO user (userid, firstname, lastname, image)
+VALUES ('wwhite1', 'Walter', 'White', NULL)
+--------------
+
+ERROR 1062 (23000) at line 22: Duplicate entry 'wwhite1' for key 'user.PRIMARY'
+--------------
+INSERT INTO post (postid, posttext, postdate, image, userid)
+VALUES ('213', 'Say my name.', '2022-03-09', NULL, 'wwhite1')
+--------------
+
+ERROR 1062 (23000) at line 26: Duplicate entry '213' for key 'post.PRIMARY'
+--------------
+INSERT INTO hashtag (hashtagid, hashtagtext, trending, hashtagdate) 
+VALUES ('011', '#goodtimes', 0, '2023-11-06')
+--------------
+
+ERROR 1062 (23000) at line 30: Duplicate entry '011' for key 'hashtag.PRIMARY'
+--------------
+INSERT INTO hashonpost (hashtagid, postid) 
+VALUES ('011', '300')
+--------------
+
+ERROR 1452 (23000) at line 34: Cannot add or update a child row: a foreign key constraint fails (`assign2db`.`hashonpost`, CONSTRAINT `hashonpost_ibfk_2` FOREIGN KEY (`postid`) REFERENCES `post` (`postid`))
+--------------
+INSERT INTO hashonpost (hashtagid, postid) 
+VALUES ('011', '201')
+--------------
+
+ERROR 1062 (23000) at line 36: Duplicate entry '011-201' for key 'hashonpost.PRIMARY'
+--------------
+INSERT INTO hashonpost (hashtagid, postid) 
+VALUES ('011', '202')
+--------------
+
+ERROR 1062 (23000) at line 38: Duplicate entry '011-202' for key 'hashonpost.PRIMARY'
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+--------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                  |
++---------+-----------+-----------+--------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                   |
+| hsimp   | Homer     | Simpson   | https://pngimg.com/uploads/simpsons/simpsons_PNG27.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                   |
+| mgell   | Monica    | Geller    | NULL                                                   |
+| msimp   | Marge     | Simpson   | NULL                                                   |
+| nflan   | Ned       | Flanders  | NULL                                                   |
+| pbuff   | Phoebe    | Buffay    | NULL                                                   |
+| rgell   | Ross      | Geller    | NULL                                                   |
+| rgree   | Rachel    | Green     | NULL                                                   |
+| tflan   | Todd      | Flanders  | NULL                                                   |
+| wwhite1 | Walter    | White     | NULL                                                   |
++---------+-----------+-----------+--------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM post
+--------------
+
++--------+----------------------------------------------------+------------+-------+---------+
+| postid | posttext                                           | postdate   | image | userid  |
++--------+----------------------------------------------------+------------+-------+---------+
+| 201    | Life is beautiful! Enjoy every moment.             | 2023-11-03 | NULL  | rgree   |
+| 202    | Spread positivity and kindness today!              | 2023-11-03 | NULL  | rgree   |
+| 203    | Believe in yourself and your dreams.               | 2023-11-03 | NULL  | rgree   |
+| 204    | Be a good neighbor and help others.                | 2023-11-03 | NULL  | tflan   |
+| 205    | Always keep a positive attitude.                   | 2023-11-03 | NULL  | tflan   |
+| 206    | Family is everything; cherish the moments.         | 2023-11-03 | NULL  | tflan   |
+| 207    | Dream big and work hard to achieve your goals.     | 2023-11-03 | NULL  | jtrib3  |
+| 208    | Laughter is the best medicine.                     | 2023-11-03 | NULL  | jtrib3  |
+| 209    | Stay positive and keep smiling!                    | 2023-11-03 | NULL  | jtrib3  |
+| 210    | Embrace change and don't be afraid to be yourself. | 2020-08-24 | NULL  | cbing33 |
+| 211    | Make your own luck in life.                        | 2020-08-24 | NULL  | cbing33 |
+| 212    | Cleaning is good for the soul                      | 2021-10-03 | NULL  | mgell   |
+| 213    | Say my name.                                       | 2022-03-09 | NULL  | wwhite1 |
++--------+----------------------------------------------------+------------+-------+---------+
+13 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashtag
+--------------
+
++-----------+------------------+----------+-------------+
+| hashtagid | hashtagtext      | trending | hashtagdate |
++-----------+------------------+----------+-------------+
+| 001       | #Inspiration     |        1 | 2023-11-03  |
+| 002       | #PositiveVibes   |        1 | 2023-11-03  |
+| 003       | #DreamBig        |        1 | 2023-11-03  |
+| 004       | #KindnessMatters |        1 | 2023-11-03  |
+| 005       | #FamilyLove      |        0 | 2023-11-03  |
+| 006       | #LaughMore       |        1 | 2023-11-03  |
+| 007       | #ChaseYourDreams |        0 | 2023-11-03  |
+| 008       | #StayPositive    |        1 | 2023-11-03  |
+| 009       | #EmbraceChange   |        0 | 2023-11-03  |
+| 010       | #BeYourself      |        1 | 2023-11-03  |
+| 011       | #goodtimes       |        0 | 2023-11-06  |
++-----------+------------------+----------+-------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashonpost
+--------------
+
++-----------+--------+
+| hashtagid | postid |
++-----------+--------+
+| 001       | 201    |
+| 002       | 201    |
+| 008       | 201    |
+| 011       | 201    |
+| 002       | 202    |
+| 004       | 202    |
+| 006       | 202    |
+| 011       | 202    |
+| 006       | 206    |
+| 008       | 208    |
+| 010       | 208    |
++-----------+--------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT lastname FROM user
+--------------
+
++-----------+
+| lastname  |
++-----------+
+| Bing      |
+| Simpson   |
+| Tribbiani |
+| Geller    |
+| Simpson   |
+| Flanders  |
+| Buffay    |
+| Geller    |
+| Green     |
+| Flanders  |
+| White     |
++-----------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT DISTINCT lastname FROM user
+--------------
+
++-----------+
+| lastname  |
++-----------+
+| Bing      |
+| Simpson   |
+| Tribbiani |
+| Geller    |
+| Flanders  |
+| Buffay    |
+| Green     |
+| White     |
++-----------+
+8 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM user ORDER BY lastname ASC
+--------------
+
++---------+-----------+-----------+--------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                  |
++---------+-----------+-----------+--------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                   |
+| pbuff   | Phoebe    | Buffay    | NULL                                                   |
+| nflan   | Ned       | Flanders  | NULL                                                   |
+| tflan   | Todd      | Flanders  | NULL                                                   |
+| mgell   | Monica    | Geller    | NULL                                                   |
+| rgell   | Ross      | Geller    | NULL                                                   |
+| rgree   | Rachel    | Green     | NULL                                                   |
+| hsimp   | Homer     | Simpson   | https://pngimg.com/uploads/simpsons/simpsons_PNG27.png |
+| msimp   | Marge     | Simpson   | NULL                                                   |
+| jtrib3  | Joey      | Tribbiani | NULL                                                   |
+| wwhite1 | Walter    | White     | NULL                                                   |
++---------+-----------+-----------+--------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT hashtagtext, hashtagdate FROM hashtag WHERE trending='1'
+--------------
+
++------------------+-------------+
+| hashtagtext      | hashtagdate |
++------------------+-------------+
+| #Inspiration     | 2023-11-03  |
+| #PositiveVibes   | 2023-11-03  |
+| #DreamBig        | 2023-11-03  |
+| #KindnessMatters | 2023-11-03  |
+| #LaughMore       | 2023-11-03  |
+| #StayPositive    | 2023-11-03  |
+| #BeYourself      | 2023-11-03  |
++------------------+-------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT p.postid, p.posttext, u.userid, u.firstname FROM post p JOIN user u ON p.userid = u.userid
+--------------
+
++--------+----------------------------------------------------+---------+-----------+
+| postid | posttext                                           | userid  | firstname |
++--------+----------------------------------------------------+---------+-----------+
+| 201    | Life is beautiful! Enjoy every moment.             | rgree   | Rachel    |
+| 202    | Spread positivity and kindness today!              | rgree   | Rachel    |
+| 203    | Believe in yourself and your dreams.               | rgree   | Rachel    |
+| 204    | Be a good neighbor and help others.                | tflan   | Todd      |
+| 205    | Always keep a positive attitude.                   | tflan   | Todd      |
+| 206    | Family is everything; cherish the moments.         | tflan   | Todd      |
+| 207    | Dream big and work hard to achieve your goals.     | jtrib3  | Joey      |
+| 208    | Laughter is the best medicine.                     | jtrib3  | Joey      |
+| 209    | Stay positive and keep smiling!                    | jtrib3  | Joey      |
+| 210    | Embrace change and don't be afraid to be yourself. | cbing33 | Chandler  |
+| 211    | Make your own luck in life.                        | cbing33 | Chandler  |
+| 212    | Cleaning is good for the soul                      | mgell   | Monica    |
+| 213    | Say my name.                                       | wwhite1 | Walter    |
++--------+----------------------------------------------------+---------+-----------+
+13 rows in set (0.00 sec)
+
+--------------
+SELECT h.hashtagtext, p.posttext FROM hashtag h JOIN hashonpost hp ON h.hashtagid = hp.hashtagid
+JOIN post p ON hp.postid = p.postid ORDER BY h.hashtagtext
+--------------
+
++------------------+--------------------------------------------+
+| hashtagtext      | posttext                                   |
++------------------+--------------------------------------------+
+| #BeYourself      | Laughter is the best medicine.             |
+| #goodtimes       | Life is beautiful! Enjoy every moment.     |
+| #goodtimes       | Spread positivity and kindness today!      |
+| #Inspiration     | Life is beautiful! Enjoy every moment.     |
+| #KindnessMatters | Spread positivity and kindness today!      |
+| #LaughMore       | Spread positivity and kindness today!      |
+| #LaughMore       | Family is everything; cherish the moments. |
+| #PositiveVibes   | Life is beautiful! Enjoy every moment.     |
+| #PositiveVibes   | Spread positivity and kindness today!      |
+| #StayPositive    | Life is beautiful! Enjoy every moment.     |
+| #StayPositive    | Laughter is the best medicine.             |
++------------------+--------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+SELECT h.hashtagtext, p.posttext, u.firstname, u.lastname FROM hashtag h JOIN hashonpost hp ON h.hashtagid = hp.hashtagid
+JOIN post p ON hp.postid = p.postid
+JOIN user u ON p.userid = u.userid
+WHERE h.hashtagtext IN ('#PositiveVibes', '#BeYourself')
+--------------
+
++----------------+----------------------------------------+-----------+-----------+
+| hashtagtext    | posttext                               | firstname | lastname  |
++----------------+----------------------------------------+-----------+-----------+
+| #PositiveVibes | Life is beautiful! Enjoy every moment. | Rachel    | Green     |
+| #PositiveVibes | Spread positivity and kindness today!  | Rachel    | Green     |
+| #BeYourself    | Laughter is the best medicine.         | Joey      | Tribbiani |
++----------------+----------------------------------------+-----------+-----------+
+3 rows in set (0.01 sec)
+
+--------------
+SELECT p.posttext, c.commenttext, pc.firstname AS poster_firstname, pc.lastname 
+AS poster_lastname, cc.firstname AS commenter_firstname, cc.lastname AS commenter_lastname
+FROM post p
+JOIN user pc ON p.userid = pc.userid
+JOIN comments c ON p.postid = c.postid
+JOIN user cc ON c.userid = cc.userid
+WHERE pc.firstname = 'Chandler' AND pc.lastname = 'Bing'
+--------------
+
++----------------------------------------------------+------------------------------------------------+------------------+-----------------+---------------------+--------------------+
+| posttext                                           | commenttext                                    | poster_firstname | poster_lastname | commenter_firstname | commenter_lastname |
++----------------------------------------------------+------------------------------------------------+------------------+-----------------+---------------------+--------------------+
+| Embrace change and don't be afraid to be yourself. | Chandler, you never fail to make us laugh!     | Chandler         | Bing            | Homer               | Simpson            |
+| Embrace change and don't be afraid to be yourself. | Chandler, you always bring a smile to my face. | Chandler         | Bing            | Rachel              | Green              |
+| Make your own luck in life.                        | Chandler, your positive energy is contagious.  | Chandler         | Bing            | Homer               | Simpson            |
++----------------------------------------------------+------------------------------------------------+------------------+-----------------+---------------------+--------------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM hashtag h
+LEFT JOIN hashonpost hp ON h.hashtagid = hp.hashtagid
+WHERE h.trending = '1' AND hp.hashtagid IS NULL
+--------------
+
++-----------+-------------+----------+-------------+-----------+--------+
+| hashtagid | hashtagtext | trending | hashtagdate | hashtagid | postid |
++-----------+-------------+----------+-------------+-----------+--------+
+| 003       | #DreamBig   |        1 | 2023-11-03  | NULL      | NULL   |
++-----------+-------------+----------+-------------+-----------+--------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT u.firstname, u.lastname, p.posttext, p.postid, COUNT(c.postid) AS num_comments
+FROM post p 
+JOIN user u ON p.userid = u.userid
+JOIN comments c ON p.postid = c.postid
+GROUP BY u.firstname, u.lastname, p.posttext, p.postid
+HAVING num_comments >= 1
+--------------
+
++-----------+-----------+----------------------------------------------------+--------+--------------+
+| firstname | lastname  | posttext                                           | postid | num_comments |
++-----------+-----------+----------------------------------------------------+--------+--------------+
+| Rachel    | Green     | Life is beautiful! Enjoy every moment.             | 201    |            3 |
+| Rachel    | Green     | Believe in yourself and your dreams.               | 203    |            1 |
+| Todd      | Flanders  | Be a good neighbor and help others.                | 204    |            1 |
+| Joey      | Tribbiani | Stay positive and keep smiling!                    | 209    |            1 |
+| Chandler  | Bing      | Embrace change and don't be afraid to be yourself. | 210    |            2 |
+| Chandler  | Bing      | Make your own luck in life.                        | 211    |            1 |
++-----------+-----------+----------------------------------------------------+--------+--------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT p.posttext, c.commenttext, p.postdate, c.commentdate
+FROM post p
+JOIN comments c ON p.postid = c.postid
+WHERE p.postdate > c.commentdate
+--------------
+
++--------------------------------------+------------------------------------------+------------+-------------+
+| posttext                             | commenttext                              | postdate   | commentdate |
++--------------------------------------+------------------------------------------+------------+-------------+
+| Believe in yourself and your dreams. | Monica, your words of wisdom inspire me. | 2023-11-03 | 2010-11-03  |
++--------------------------------------+------------------------------------------+------------+-------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT u.firstname, u.lastname, u.userid, COUNT(f.follower) AS FollowedBy
+FROM user u
+LEFT JOIN follows f ON u.userid = f.following
+GROUP BY u.firstname, u.lastname, u.userid
+ORDER BY FollowedBy DESC
+--------------
+
++-----------+-----------+---------+------------+
+| firstname | lastname  | userid  | FollowedBy |
++-----------+-----------+---------+------------+
+| Rachel    | Green     | rgree   |          3 |
+| Chandler  | Bing      | cbing33 |          2 |
+| Homer     | Simpson   | hsimp   |          1 |
+| Joey      | Tribbiani | jtrib3  |          1 |
+| Monica    | Geller    | mgell   |          0 |
+| Marge     | Simpson   | msimp   |          0 |
+| Ned       | Flanders  | nflan   |          0 |
+| Phoebe    | Buffay    | pbuff   |          0 |
+| Ross      | Geller    | rgell   |          0 |
+| Todd      | Flanders  | tflan   |          0 |
+| Walter    | White     | wwhite1 |          0 |
++-----------+-----------+---------+------------+
+11 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW PostCommmentCounts AS
+SELECT p.postid, COUNT(c.postid) AS num
+FROM post p
+LEFT JOIN comments c ON p.postid = c.postid
+GROUP BY p.postid
+--------------
+
+ERROR 1050 (42S01) at line 97: Table 'PostCommmentCounts' already exists
+--------------
+SELECT u.firstname, u.lastname, p.posttext, p.postid, pc.num AS num_comments
+FROM user u
+JOIN post p ON u.userid =  p.userid
+JOIN PostCommentCounts pc ON p.postid = pc.postid
+WHERE pc.num =(SELECT MAX(num) FROM PostCommentCounts)
+--------------
+
+ERROR 1146 (42S02) at line 102: Table 'assign2db.PostCommentCounts' doesn't exist
+--------------
+SELECT u.firstname, u.lastname, u.userid, MIN(f.followyear) AS first_follow_year
+FROM user u
+JOIN follows f ON u.userid = f.follower
+GROUP BY u.firstname, u.lastname, u.userid
+ORDER BY first_follow_year
+LIMIT 1
+--------------
+
++-----------+-----------+--------+-------------------+
+| firstname | lastname  | userid | first_follow_year |
++-----------+-----------+--------+-------------------+
+| Joey      | Tribbiani | jtrib3 |              2015 |
++-----------+-----------+--------+-------------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT h.hashtagtext, COUNT(hp.postid) AS num_posts
+FROM hashtag h
+LEFT JOIN hashonpost hp ON h.hashtagid = hp.hashtagid
+GROUP BY h.hashtagtext
+ORDER BY num_posts DESC
+--------------
+
++------------------+-----------+
+| hashtagtext      | num_posts |
++------------------+-----------+
+| #PositiveVibes   |         2 |
+| #LaughMore       |         2 |
+| #StayPositive    |         2 |
+| #goodtimes       |         2 |
+| #Inspiration     |         1 |
+| #KindnessMatters |         1 |
+| #BeYourself      |         1 |
+| #DreamBig        |         0 |
+| #FamilyLove      |         0 |
+| #ChaseYourDreams |         0 |
+| #EmbraceChange   |         0 |
++------------------+-----------+
+11 rows in set (0.00 sec)
+
+--------------
+CREATE VIEW FollowersList AS
+SELECT followed.userid AS followed_userid, 
+       followed.firstname AS followed_firstname, 
+       followed.lastname AS followed_lastname, 
+       follower.userid AS follower_userid, 
+       follower.firstname AS follower_firstname, 
+       follower.lastname AS follower_lastname
+FROM user AS followed
+LEFT JOIN follows ON followed.userid = follows.following
+LEFT JOIN user AS follower ON follows.follower = follower.userid
+ORDER BY followed.lastname
+--------------
+
+Query OK, 0 rows affected (0.04 sec)
+
+--------------
+SELECT * FROM FollowersList
+--------------
+
++-----------------+--------------------+-------------------+-----------------+--------------------+-------------------+
+| followed_userid | followed_firstname | followed_lastname | follower_userid | follower_firstname | follower_lastname |
++-----------------+--------------------+-------------------+-----------------+--------------------+-------------------+
+| cbing33         | Chandler           | Bing              | jtrib3          | Joey               | Tribbiani         |
+| cbing33         | Chandler           | Bing              | rgell           | Ross               | Geller            |
+| pbuff           | Phoebe             | Buffay            | NULL            | NULL               | NULL              |
+| nflan           | Ned                | Flanders          | NULL            | NULL               | NULL              |
+| tflan           | Todd               | Flanders          | NULL            | NULL               | NULL              |
+| mgell           | Monica             | Geller            | NULL            | NULL               | NULL              |
+| rgell           | Ross               | Geller            | NULL            | NULL               | NULL              |
+| rgree           | Rachel             | Green             | hsimp           | Homer              | Simpson           |
+| rgree           | Rachel             | Green             | jtrib3          | Joey               | Tribbiani         |
+| rgree           | Rachel             | Green             | rgell           | Ross               | Geller            |
+| hsimp           | Homer              | Simpson           | tflan           | Todd               | Flanders          |
+| msimp           | Marge              | Simpson           | NULL            | NULL               | NULL              |
+| jtrib3          | Joey               | Tribbiani         | rgell           | Ross               | Geller            |
+| wwhite1         | Walter             | White             | NULL            | NULL               | NULL              |
++-----------------+--------------------+-------------------+-----------------+--------------------+-------------------+
+14 rows in set (0.02 sec)
+
+--------------
+SELECT * FROM user
+--------------
+
++---------+-----------+-----------+--------------------------------------------------------+
+| userid  | firstname | lastname  | image                                                  |
++---------+-----------+-----------+--------------------------------------------------------+
+| cbing33 | Chandler  | Bing      | NULL                                                   |
+| hsimp   | Homer     | Simpson   | https://pngimg.com/uploads/simpsons/simpsons_PNG27.png |
+| jtrib3  | Joey      | Tribbiani | NULL                                                   |
+| mgell   | Monica    | Geller    | NULL                                                   |
+| msimp   | Marge     | Simpson   | NULL                                                   |
+| nflan   | Ned       | Flanders  | NULL                                                   |
+| pbuff   | Phoebe    | Buffay    | NULL                                                   |
+| rgell   | Ross      | Geller    | NULL                                                   |
+| rgree   | Rachel    | Green     | NULL                                                   |
+| tflan   | Todd      | Flanders  | NULL                                                   |
+| wwhite1 | Walter    | White     | NULL                                                   |
++---------+-----------+-----------+--------------------------------------------------------+
+11 rows in set (0.00 sec)
+
+--------------
+DELETE FROM user WHERE userid = 'nflan'
+--------------
+
+Query OK, 1 row affected (0.03 sec)
+
+--------------
+SELECT * FROM user WHERE userid = 'nflan'
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+SELECT COUNT(*) AS num_posts FROM post
+--------------
+
++-----------+
+| num_posts |
++-----------+
+|        13 |
++-----------+
+1 row in set (0.01 sec)
+
+--------------
+DELETE FROM user WHERE userid = 'mgell'
+--------------
+
+Query OK, 1 row affected (0.02 sec)
+
+--------------
+SELECT COUNT(*) AS num_posts FROM post
+--------------
+
++-----------+
+| num_posts |
++-----------+
+|        12 |
++-----------+
+1 row in set (0.01 sec)
+
+Bye
